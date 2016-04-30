@@ -1,0 +1,19 @@
+var ON="ON";
+var OFF="OFF";
+var CLOSED="CLOSE";
+var OPEN="OPEN";
+var UP="UP";
+var DOWN="DOWN";
+global.sp=null;
+global.light_bath=OFF;
+global.light_liv=OFF;
+global.light_kit=OFF;
+global.light_out=OFF;
+
+global.cutton=DOWN;
+global.window=CLOSED;
+global.gas=CLOSED;
+global.=DOWN;
+
+
+module.exports=function(){}

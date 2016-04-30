@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="initial-scale=1.0, width=device-width">
+<title>홈 제어</title>
+
+<!-- 제이쿼리 모바일, 제이쿼리 라이브러리 파일 -->
+<link rel="stylesheet" href="./script/jquery/jquery.mobile-1.4.5.min.css" />
+<script src="./script/jquery/jquery-1.11.1.min.js"></script>
+<script src="./script/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+<!-- 사용자 정의 자바스크립트 파일 -->
+<script src="./script/source/url.js"></script>
+<script src="./script/source/get.js"></script>
+<script src="./script/source/post.js"></script>
+<script src="./script/source/query.js"></script>
+<style type="text/css">
+table { color : black ; background : #fff ; border : 1px solid #b4b4b4 ; font: bold 17px helvetica; padding : 0; margin-top :10px; width:100%; -webkit-border-radius:8px}
+
+
+table tr td { color : #666; border-bottom : 1px solid #b4b4b4; padding : 10px 10px 10px 10px; background-image: -webkit-linear-gradient(top, #fdfdfd, #eee);
+}
+
+
+table tr td:last-child{
+border-right: none;
+}
+
+table tr : last-child td{
+border-bottom :none;
+}
+
+em { margin:10 px;padding-top:5px;border:2px solid #666; }
+
+
+   
+  
+</style>
+</head>  
+<body>
+
+<!-- 시작 화면 -->
+  <div class =page data-role="page" id="page0">
+	<div class="header" data-role="header" data-position="fixed">
+		<h1>홈 제어</h1>
+		<a href="#page0" data-icon="home" data-iconpos="notext" class="ui-btn-right">Home</a>
+	</div>
+
+	<div data-role="content" >
+	
+<p id="time"></p>
+<table class=table>
+<tr><td>온도</td><td id="board_temp">nul</td><td>습도</td><td id="board_humi">null</td></tr>
+<tr><td>강수량</td><td id="board_rain">nul</td><td>자외선</td><td id="board_uv">null</td></tr>
+<tr><td>안방</td><td id="board_liv">nul</td><td>부엌</td><td id="board_kit">null</td></tr>
+<tr><td>화장실</td><td id="board_bat">null</td><td>현관</td><td id="board_out">null</td></tr>
+<tr><td>창문</td><td id="board_window">null</td><td>커튼</td><td id="board_cutton">null</td></tr>
+<tr><td>가스</td><td id="board_gas">null</td><td>택배</td><td id="board_temp">null</td></tr>
+
+</table>
+
+ 
+
+ 
+
+
+
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#page1">조명제어</a></li>
+			<li><a href="#page2">창문 커튼제어</a></li>
+			<li><a href="#page3">가스제어</a></li>
+			
+		</ul>
+	</div>
+	
+  <div class="footer" data-role="footer" data-position="fixed">
+		<h4>성공회대 사물인터넷 소모임</h4>
+    </div>
+  </div>
+
+ <!-- LED --> 
+
+  <div data-role="page" id="page1">
+	<div class="header" data-role="header" data-position="fixed">
+		<a href="#page0" data-icon="back" data-rel="back" data-direction="reverse">Back</a>
+		<h1>조명제어</h1>
+		<a href="#page0" data-icon="home" data-iconpos="notext">Home</a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#page1">조명제어</a></li>
+				<li><a href="#page2">창문 커튼제어</a></li>
+				<li><a href="#page3">가스제어</a></li>
+				   
+			</ul>
+		</div>
+	</div>
+ <!-- 머리 -->
+
+	<div  data-role="content">
+			<h3>조명제어</h3>
+			 
+				
+					<div  class=a data-role="collapsible-set"  >
+				
+                                        <div  class=a data-role="collapsible" data-collapsed="true">
+				
+<h3> 거실 </h3>
+
+ <div data-role="controlgroup" data-type="horizontal" >
+<em id="state_liv"></em> <button  data-icon="eye" id="btn_liv_on"  >on</button><button data-icon="delete" id="btn_liv_off" >off</button>
+     </div>   </div>
+ <div   data-role="collapsible" data-collapsed="true">
+<h3> 주방  </h3>
+
+<div data-role="controlgroup" data-type="horizontal">
+<em id="state_kit"></em><button data-icon="eye" id="btn_kit_on" >on</button><button data-icon="delete" id="btn_kit_off" >off</button> 
+ </div></div>
+     
+ <div   data-role="collapsible" data-collapsed="true">
+<h3> 화장실 </h3>
+
+<div  data-role="controlgroup" data-type="horizontal">
+<em id="state_bat"></em><button data-icon="eye" id="btn_bat_on" >on</button><button data-icon="delete" id="btn_bat_off" >off</button>
+        </div> </div>
+ <div   data-role="collapsible" data-collapsed="true">
+<h3> 현관 </h3>
+
+<div data-role="controlgroup" data-type="horizontal">
+<em id="state_out"></em><button data-icon="eye" id="btn_out_on" >on</button><button data-icon="delete" id="btn_out_off" >off</button>
+        </div> </div>
+ <div   data-role="collapsible" data-collapsed="true">
+<h3> 모든 조명 </h3>
+<div data-role="controlgroup" data-type="horizontal">
+<em  ></em><button data-icon="eye" id="btn_all_on" >on</button><button data-icon="delete" id="btn_all_off" >off</button> 
+ </div></div>
+</div>
+ </div> 
+ 
+
+
+<div class="footer" data-role="footer" data-position="fixed">
+		<h4>성공회대 사물인터넷 소모임</h4>
+    </div>
+
+ </div>
+
+
+
+
+<!-- 커튼 창문-->
+ 
+  <div class =page data-role="page" id="page2">
+	<div class="header" data-role="header" data-position="fixed">
+		<a href="#page0" data-icon="back" data-rel="back" data-direction="reverse">Back</a>
+		<h1>커튼 창문제어</h1>
+		<a href="#page0" data-icon="home" data-iconpos="notext">Home</a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#page1">조명제어</a></li>
+				<li><a href="#page2">창문 커튼제어</a></li>
+				<li><a href="#page3">가스제어</a></li>
+				   
+			</ul>
+		</div>
+	</div>
+ <!-- 머리 -->
+
+	<div data-role="content">
+			<h3>창문 커튼제어</h3>
+			
+				 
+					<div data-role="collapsible-set">
+				
+                                       
+<div   data-role="collapsible" data-collapsed="true">	
+<h3> 창문 </h3>
+<div data-role="controlgroup" data-type="horizontal">
+
+<em id="state_window"></em><button data-icon="carat-r" id="btn_window_open" >open</button><button data-icon="lock" id="btn_window_close" >close</button>
+        </div>
+        </div>
+ 
+
+<div   data-role="collapsible" data-collapsed="true">
+<h3 > 커튼 </h3>
+<div data-role="controlgroup" data-type="horizontal">
+
+<em id="state_cutton"></em><button data-icon="arrow-u"id="btn_cutton_up" >up</button><button data-icon="arrow-d" id="btn_cutton_down" >down</button>
+     </div> </div>
+</div>
+ </div> 
+ 
+
+
+<div class="footer" data-role="footer" data-position="fixed">
+		<h4>성공회대 사물인터넷 소모임</h4>
+    </div>
+</div>
+
+
+
+
+<!-- 가스-->
+ 
+  <div class =page data-role="page" id="page3">
+	<div class="header" data-role="header" data-position="fixed">
+		<a href="#page0" data-icon="back" data-rel="back" data-direction="reverse">Back</a>
+		<h1>가스제어</h1>
+		<a href="#page0" data-icon="home" data-iconpos="notext">Home</a>
+		<div   data-role="navbar">
+			<ul  ">
+				<li ><a href="#page1">조명제어</a></li>
+				<li><a href="#page2">창문 커튼제어</a></li>
+				<li><a href="#page3">가스제어</a></li>
+				   
+			</ul>
+		</div>
+	</div>
+ <!-- 머리 -->
+
+	<div data-role="content">
+			<h3>가스제어</h3>
+			 
+					<div data-role="collapsible-set"  >
+				
+                                        <div   data-role="collapsible" data-collapsed="true">
+				
+<h3>가스 </h3>
+<div data-role="controlgroup" data-type="horizontal">
+
+<em id="state_gas"></em><button data-icon="carat-r" id="btn_gas_open" >open</button><button data-icon="lock" id="btn_gas_close" >close</button>
+         </div> </div>
+</div>
+ </div>  
+ 
+
+
+<div class="footer" data-role="footer" data-position="fixed">
+		<h4>성공회대 사물인터넷 소모임</h4>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿//var logger=require('../winston.js'); //logger
+
+var State=require('../models/state.js'); //mode
+var Query=require('../models/query.js'); 
+
+var sw=require('../Serial/SerialWrite.js');
+
+
+
+exports.light_post=function(req,res){
+res.jsonp(sw.SerialWrite(req.params.location,req.params.value));};
+
+//gas controll
+exports.gas_post=function(req,res){
+res.jsonp(sw.SerialWrite("gas",req.params.value));};
+
+//weather controll
+exports.weather_post=function(req,res){
+res.jsonp(sw.SerialWrite("weather",null));};
+
+
+//window controll
+exports.window_post=function(req,res){
+res.jsonp(sw.SerialWrite("window",req.params.value));};
+
+//cutton contoll
+exports.cutton_post=function(req,res){
+res.jsonp(sw.SerialWrite("cutton",req.params.value));};
+
+
+
+
+// 0 : light_liv //1 : light_bat// 2 : light_kit //3 : light_out //4 : gas //5 : window //6 : cutton //7 : weather //8: box
+// 5,open / close 6, up / , down 4 on / off , 0~3 on / off
+
+
+
+
+// get
+
+//gas state get
+
+exports.state=function(req,res){
+var JSONstate ={ 
+"light_bath" : light_bath ,
+"light_liv" :  light_liv ,
+"light_out" :  light_out ,
+"light_kit" :  light_kit ,
+"window" :      window,
+"cutton" :       cutton,
+"gas" :              gas 
+/*
+weather1 :
+weather2 :
+weather3 :
+weather4 :
+box :
+*/
+} 
+res.jsonp(JSONstate);
+
+
+
+}
+
+exports.gas_get=function(req,res){
+
+
+
+require("../models/state.js").find({"device": "gas"},function(err,task){
+
+res.jsonp(task);
+});
+}
+
+//get state cutton
+exports.cutton_get=function(req,res){
+console.log("cutton get()");
+
+require("../models/state.js").find({"device": "cutton"},function(err,task){
+
+res.jsonp(task);
+});
+};
+
+
+
+//get state led
+exports.light_get=function(req,res){ 
+
+
+
+require("../models/state.js").find({"device": /light/},function(err,task){
+
+res.jsonp(task);
+});
+};
+
+
+
+//get state weather
+exports.weather_get=function(req,res){
+console.log("ggggsd");
+
+require("../models/state.js").find({"device": "weather"},function(err,task){
+
+res.jsonp(task);
+});
+};
+
+
+
+
+//get state window
+exports.window_get=function(req,res){
+
+
+require("../models/state.js").find({"device": "window"},function(err,task){
+
+res.jsonp(task);
+});
+}
+
+//get state box
+exports.box_get=function(req,res){
+console.log("box get()");
+
+
+Query.find_data('device',"box",function(tasks){
+console.log("box" + tasks);
+
+res.jsonp(tasks);
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

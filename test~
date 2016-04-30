@@ -1,0 +1,10 @@
+
+void main(){
+
+
+int msg;
+
+printf("size of %d\n",sizeof(msg));
+
+
+}

@@ -1,0 +1,93 @@
+
+
+$(document).ready(function(){
+
+console.log("제손");
+
+alert("으워");
+
+
+
+
+})
+
+function post_light(){
+
+console.log("get_werther()");
+
+$.ajax({
+  type: "POST",
+  url: url,
+  success: success,
+
+});
+
+}
+
+
+
+
+
+
+function get_weather(){
+
+console.log("get_werther()");
+
+$.getJSON(url()+'weather?callback=?',function(D,err){
+console.log(D[0]);
+$('#id2').text(D[0].device);
+
+if(err)
+console.log(JSON.stringify(err))
+});
+
+}
+
+
+
+function get_light(){
+
+$.getJSON(url()+'weather?callback=?',function(D,err){
+console.log(D[0]);
+$('#id2').text(D[0].device);
+
+if(err)
+console.log(JSON.stringify(err))
+});
+
+}
+
+
+
+
+
+
+
+function get_gas(){
+
+$.getJSON(url()+'weather?callback=?',function(D,err){
+console.log(D[0]);
+$('#id2').text(D[0].device);
+
+if(err)
+console.log(JSON.stringify(err))
+});
+
+}
+
+
+function get_gas(){
+
+$.getJSON(url()+'weather?callback=?',function(D,err){
+console.log(D[0]);
+$('#id2').text(D[0].device);
+
+if(err)
+console.log(JSON.stringify(err))
+});
+
+}
+
+
+
+

@@ -1,0 +1,11 @@
+
+void main(){
+
+
+char  *msg="faaadfrtrdgrgref";
+int *msg1;
+char *msg2;
+printf("size of %d\n",sizeof(msg1));
+
+
+}

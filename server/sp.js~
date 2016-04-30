@@ -1,0 +1,165 @@
+var serialPort = require("serialport") 
+var sp = new serialPort.SerialPort('/dev/ttyUSB0',{
+  baudrate : 19200,
+  parser:serialPort.parsers.readline("\n")
+});
+var express = require('express');
+var app = express();
+var sys = require ('sys'),
+
+url = require('url'),
+http = require('http'),
+qs = require('querystring');
+    
+var windowjson, cuttonjson, gasjson, lightjson;
+var l_state, o_state, k_state, b_state, r_state, w_state, c_state, g_state;
+var str,strArr;
+var temp, humi , illu , uv, rain;
+var temp_int = 0, humi_int =0;
+
+sp.on('data',function(data){
+console.log(data);
+  	 str = data;
+	 strArr = str.split('/');
+	 temp = strArr[0];
+	 humi = strArr[1];
+	 illu = strArr[2];
+	 uv = strArr[3];
+	 rain = strArr[4];
+   });
+	temp_int = Number(temp);
+	humi_int = Number(humi);
+	
+	if(temp_int == 20 && humi_int == 30){
+		sp.write('window_auto_open');
+	   	console.log('window_auto_open');
+		w_state = 'open';
+	}//else if(temp_int < 20 && humi_int < 30){
+	//	sp.write('window_auto_close');
+	//	w_state = 'close';
+	//}else if(temp_int >= 25 && humi_int >= 40){
+	//   	sp.write('cutton_auto_up');
+	//	w_state = 'open';
+	//}else if(temp_int < 25 && humi_int < 40){
+	//	sp.write('window_auto_down');
+	//	w_state = 'close';
+	//}	
+	
+
+http.createServer(function (req, res) { 
+    if(req.method=='POST') {
+            var body = '';
+            req.on('data', function (data) {
+                body += data;
+                console.log(body);
+		if(body == 'livingroom_on'){
+                 sp.write('livingroom_on');
+		   l_state = 'on';
+                }
+		else if(body == 'livingroom_off'){
+                 sp.write('livingroom_off');
+		   l_state = 'off';
+		}
+		if(body == 'kitchen_on'){
+                 sp.write('kitchen_on');
+		   k_state = 'on';	
+		}
+                else if(body == 'kitchen_off'){
+                 sp.write('kitchen_off');
+		   k_state = 'off';	
+		}
+		if(body == 'bathroom_on'){
+                 sp.write('bathroom_on');
+		  b_state = 'on';		  	
+                }
+		else if(body == 'bathroom_off'){
+                 sp.write('bathroom_off');
+		  b_state = 'off';	
+                }
+		if(body == 'room_on'){
+                 sp.write('room_on');
+		  r_state = 'on';
+                }
+		else if(body == 'room_off'){
+                 sp.write('room_off');	 
+		 r_state = 'off';	
+		}
+		if(body == 'outdoor_on'){
+                 sp.write('outdoor_on');
+		   o_state = 'on';
+		}		 
+                else if(body == 'outdoor_off'){
+                 sp.write('outdoor_off');
+		   o_state = 'off';  
+		}
+		if(body == 'all_on'){
+                 sp.write('all_on');
+		 l_state = 'on';
+		 k_state = 'on';
+		 b_state = 'on'; 
+		 r_state = 'on'; 
+		 o_state = 'on';
+                }
+		else if(body == 'all_off'){
+                 sp.write('all_off');
+		 l_state = 'off';
+		 k_state = 'off';
+		 b_state = 'off'; 
+		 r_state = 'off'; 
+		 o_state = 'off';
+		}
+		if(body == 'windows_open'){
+                 sp.write('windows_open');
+		    w_state = '¿­¸²';
+		}
+                else if(body == 'windows_close'){
+                 sp.write('windows_close');
+		    w_state = '´ÝÈû';
+		}
+		if(body == 'cutton_up'){
+                 sp.write('cutton_up');
+		 c_state = 'up';	
+		}
+                else if(body == 'cutton_down'){
+                 sp.write('cutton_down');
+		 c_state = 'down'; 		  		
+		}
+		if(body == 'gas_off'){
+                 sp.write('gas_off');
+		 g_state = 'off';	
+		}
+		if(body == 'weather_state'){
+                 sp.write('weather_state');
+		} 
+		
+		
+		
+		windowjson = {'window_state': w_state };
+	        cuttonjson ={'cutton_state': c_state }; 	 
+		lightjson = {'livingroom_state': l_state,'kitchen_state': k_state, 'bathroom_state': b_state ,'room_state': r_state , 'outdoor_state': o_state }; 
+		gasjson ={'gas_state': g_state };
+		weatherjson = {'temp' : temp ,'humi' : humi ,'illu': illu , 'uv': uv, 'rain' : rain };
+		console.log(JSON.stringify(lightjson));		
+		console.log(JSON.stringify(windowjson));
+		console.log(JSON.stringify(cuttonjson));
+		console.log(JSON.stringify(gasjson));
+		console.log(JSON.stringify(weatherjson));
+            });
+            req.on('end',function(){
+                var POST =  qs.parse(body);
+            });
+    }
+    else if(req.method=='GET') {
+    	 res.writeHead(200,{'Content-Type' : 'text/plain'}); 
+	 res.write(JSON.stringify(cuttonjson));	 
+         res.write('\n');  
+	 res.write(JSON.stringify(weatherjson));
+         res.write('\n');
+	 res.write(JSON.stringify(windowjson));	 
+         res.write('\n');
+	 res.write(JSON.stringify(gasjson));	 
+         res.write('\n');
+	 res.write(JSON.stringify(lightjson));	 
+	 res.end();
+	}   
+}).listen(8001);

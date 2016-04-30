@@ -1,0 +1,25 @@
+var fs = require('fs');
+var fd;
+
+var Buffer = require('buffer').Buffer;
+var buffer = new Buffer(100);
+
+fs.open("/dev/ttyACM0", "w+", function(status, _fd){
+fd = _fd;
+if(status){
+console.log(status.message);
+return;
+}
+while(1){
+fs.read(fd, buffer, 0, 100, null, function(e,l,b){
+console.log("Read " + l + " bytes."+b);
+return;
+});
+}
+});
+
+var buf = new Buffer('BBBB\n');
+var stdin = process.openStdin();
+stdin.on('data', function(chunk) {
+console.log("??"+chunk);
+});

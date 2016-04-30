@@ -1,0 +1,16 @@
+var mongoose = require('mongoose');
+
+Schema = mongoose.Schema;
+
+var lightSchema = new Schema({
+	
+	status: { type : String , default : "state_light"},
+	contents : String,
+	createDate: { type: Date, default: Date.now},
+	author: {type: String , default : "anyone"}
+	
+	
+});
+
+
+module.exports = mongoose.model('Task',taskSchema); 

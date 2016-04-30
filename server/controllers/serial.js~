@@ -1,0 +1,148 @@
+
+var liv_off="A030!",
+liv_on="A031!",
+ kit_on ='A021!',
+kit_off='A020!',
+
+bat_on='A011!',
+bat_off='A010!',
+
+out_on='A041!',
+out_off='A040!',
+
+all_on='A101!',
+all_off='A100!',
+
+windows_open='D001!',
+windows_close='D000!',
+
+cutton_up='C001!',
+cutton_down='C000!',
+
+gas_off='B000!',
+gas_on='B001!',
+
+weather="E0000!"
+
+
+
+;
+
+
+
+var success="{value:1}";
+var fail="{value:0}";
+exports.SerialWrite=function(location,value){
+
+console.log("write");
+var d =[0x01,0x02,0x03,0x04,0x05,0x06,0x07]
+
+
+for(var i=0;i<7;i++){
+sp.write(d[i]);
+console.log(d[i]);
+}
+console.log("f");
+if( location =="liv")
+{
+if(value=="off"){
+sp.write(liv_off);
+return success;;}
+if(value=="on"){
+sp.write(liv_on);
+return success;;}
+}
+
+
+else if( location =="kit")
+{
+if(value=="off")
+{sp.write(kit_off);
+return success;;}
+if(value=="on"){
+sp.write(kit_on);
+return success;;}
+}
+
+
+else if( location =="bat")
+{
+if(value=="off")
+{sp.write(bat_off);
+return success;;}
+if(value=="on"){
+sp.write(bat_on);
+return success;;}
+}
+else if( location =="out")
+{
+if(value=="off")
+{sp.write(out_off);
+return success;;}
+if(value=="on"){
+sp.write(out_on);
+return success;;}
+}
+
+
+else if( location =="all")
+{
+if(value=="off")
+{sp.write(all_off);
+return success;;}
+if(value=="on"){
+sp.write(all_on);
+return success;;}
+}
+
+//gas
+if(location=="gas"){
+if(value=="open")
+{sp.write(gas_on);
+return success;;}
+if(value=="close")
+{sp.write(gas_off);
+return success;;}
+
+}
+/*
+//weather controll
+exports.weather_post=function(req,res){
+
+ console.log("ppggggsd");
+
+
+sp.write(weather);
+return success;;
+
+};
+*/
+
+//window controll
+if(location=="window")
+{
+if(value=="open"){
+sp.write(windows_open);
+return success;;
+}
+if(value=="close")
+{
+sp.write(windows_close);
+return success;;}
+}
+//cutton contoll
+if(location=="cutton")
+
+{if(value=="up")
+{sp.write(cutton_up);
+return success;;}
+
+if(value=="down"){
+sp.write(cutton_down);
+
+
+return success;;}
+
+};
+
+};
